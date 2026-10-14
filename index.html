@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thiyagu Textile Store</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --brown: #29170f;
+        --brown2: #55301d;
+        --gold: #c99b54;
+        --cream: #fff8ed;
+        --text: #39271c;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text);
+        background: var(--cream);
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+
+      header {
+        background: var(--brown);
+        color: white;
+        padding: 18px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .brand {
+        color: #f1d49b;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 27px;
+        font-weight: 700;
+      }
+      .tagline {
+        font-family: "Poppins", sans-serif;
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: white;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      nav button {
+        padding: 10px 13px;
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 25px;
+        background: transparent;
+        font-size: 12px;
+      }
+      nav button:hover,
+      nav button.selected {
+        background: var(--gold);
+        color: var(--brown);
+      }
+
+      .page {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+      .page.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 13px 23px;
+        border: none;
+        border-radius: 7px;
+        color: white;
+        background: linear-gradient(135deg, #d1a45f, #965722);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px #0002;
+      }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--gold);
+        color: var(--brown);
+      }
+
+      .hero {
+        min-height: 540px;
+        padding: 80px 8%;
+        display: flex;
+        align-items: center;
+        color: white;
+        background:
+          linear-gradient(90deg, #211108e8, #21110845),
+          url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2000&q=85")
+            center/cover;
+      }
+      .hero-content {
+        max-width: 650px;
+      }
+      .eyebrow {
+        color: var(--gold);
+        letter-spacing: 3px;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .hero h1,
+      .banner h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(42px, 7vw, 75px);
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+      .hero h1 span {
+        color: #f3d7a0;
+      }
+      .hero p {
+        max-width: 520px;
+        line-height: 1.9;
+        margin-bottom: 25px;
+        color: #f5e8d8;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .section {
+        padding: 65px 7%;
+      }
+      .heading {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .heading h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 42px;
+      }
+      .heading p {
+        color: #9a642c;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 11px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .category {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px #3d281414;
+      }
+      .category img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+      }
+      .category div {
+        padding: 22px;
+      }
+      .category h3 {
+        font:
+          600 27px "Cormorant Garamond",
+          serif;
+        margin-bottom: 8px;
+      }
+      .category p {
+        font-size: 13px;
+        line-height: 1.8;
+        color: #78675a;
+      }
+
+      .auth-bg {
+        min-height: 650px;
+        padding: 50px 15px;
+        display: grid;
+        place-items: center;
+        background:
+          linear-gradient(#29170fdc, #29170fba),
+          url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=85")
+            center/cover;
+      }
+      .auth-card {
+        width: 100%;
+        max-width: 430px;
+        background: #fffaf3f7;
+        padding: 35px;
+        border-radius: 17px;
+        box-shadow: 0 20px 60px #0004;
+        text-align: center;
+      }
+      .logo-circle {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 15px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #f0dfc4;
+        color: #8a5526;
+        font-size: 29px;
+      }
+      .auth-card h1 {
+        font:
+          600 38px "Cormorant Garamond",
+          serif;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        color: #78675a;
+        font-size: 12px;
+        margin-bottom: 22px;
+      }
+      .auth-card input {
+        width: 100%;
+        padding: 13px;
+        margin-bottom: 13px;
+        border: 1px solid #e0d0bc;
+        border-radius: 7px;
+        background: white;
+        outline: none;
+        font-size: 13px;
+      }
+      .auth-card input:focus {
+        border-color: var(--gold);
+      }
+      .auth-card .btn {
+        width: 100%;
+      }
+      .auth-bottom {
+        font-size: 12px;
+        color: #78675a;
+        margin-top: 20px;
+      }
+      .text-link {
+        color: #965722;
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .message {
+        font-size: 12px;
+        margin-top: 12px;
+        overflow-wrap: anywhere;
+      }
+
+      /* PROFILE BACKGROUND */
+      .banner {
+        padding: 70px 7%;
+        color: white;
+        background:
+          linear-gradient(90deg, #1d1009e8, #29170f70),
+          url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1800&q=85")
+            center/cover;
+      }
+      .banner p {
+        color: #f4d8a5;
+      }
+
+      .profile-wrap {
+        padding: 0 6% 70px;
+        margin-top: -30px;
+      }
+      .profile-card {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 18px 50px #24150e24;
+      }
+      .profile-top {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        background: linear-gradient(120deg, #fff0d8, #e9c995);
+      }
+      .profile-photo {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid white;
+        background: #ead9c1;
+        box-shadow: 0 5px 18px #0002;
+      }
+      .profile-top h2 {
+        font:
+          700 42px "Cormorant Garamond",
+          serif;
+      }
+      .profile-content {
+        padding: 30px;
+      }
+      .profile-content h3 {
+        font:
+          600 30px "Cormorant Garamond",
+          serif;
+        margin-bottom: 20px;
+      }
+      .details {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .detail {
+        background: #fff8ee;
+        border: 1px solid #f0dfc9;
+        padding: 18px;
+        border-radius: 9px;
+        overflow-wrap: anywhere;
+      }
+      .label {
+        color: #987d61;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+      }
+      .value {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .detail a {
+        color: #965722;
+        text-decoration: none;
+      }
+      .upload {
+        margin-top: 25px;
+      }
+      .upload input {
+        display: block;
+        margin-top: 10px;
+        max-width: 100%;
+        font-size: 12px;
+      }
+
+      /* TRANSACTIONS PAGE */
+      .transaction-banner {
+        padding: 65px 7% 100px;
+        color: white;
+        background:
+          linear-gradient(90deg, #162719e8, #17271975),
+          url("https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=1800&q=85")
+            center/cover;
+      }
+      .transaction-banner h1 {
+        font:
+          600 clamp(40px, 6vw, 60px) "Cormorant Garamond",
+          serif;
+      }
+      .transaction-banner p {
+        color: #f1dfbe;
+        margin-top: 10px;
+        line-height: 1.8;
+      }
+
+      .transaction-wrap {
+        padding: 0 6% 75px;
+        margin-top: -55px;
+      }
+      .transaction-card {
+        max-width: 850px;
+        margin: auto;
+        padding: 35px;
+        border-radius: 17px;
+        background: #fffaf2;
+        box-shadow: 0 18px 50px #0003;
+      }
+      .transaction-card h2 {
+        font:
+          600 32px "Cormorant Garamond",
+          serif;
+        margin-bottom: 8px;
+      }
+      .transaction-intro {
+        font-size: 13px;
+        color: #79685a;
+        margin-bottom: 25px;
+        line-height: 1.8;
+      }
+      .account-row {
+        display: grid;
+        grid-template-columns: 190px 1fr auto;
+        gap: 15px;
+        align-items: center;
+        padding: 19px 0;
+        border-bottom: 1px solid #eadbc7;
+      }
+      .account-row:last-of-type {
+        border-bottom: none;
+      }
+      .account-label {
+        font-size: 12px;
+        color: #8c7259;
+      }
+      .account-value {
+        font-size: 14px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      .copy-btn {
+        background: #eee0ca;
+        color: #633b20;
+        border: none;
+        border-radius: 6px;
+        padding: 9px 12px;
+        font-size: 11px;
+      }
+      .copy-btn:hover {
+        background: #e0c79f;
+      }
+      .payment-note {
+        margin-top: 25px;
+        padding: 17px;
+        background: #f4ead9;
+        border-left: 4px solid var(--gold);
+        font-size: 12px;
+        line-height: 1.8;
+        color: #6c5036;
+      }
+      .transaction-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 25px;
+      }
+
+      footer {
+        background: var(--brown);
+        color: #ead8b9;
+        text-align: center;
+        padding: 30px 15px;
+        font-size: 12px;
+        line-height: 2;
+      }
+      footer h2 {
+        font:
+          700 27px "Cormorant Garamond",
+          serif;
+        color: #f1d49b;
+      }
+
+      @media (max-width: 760px) {
+        header {
+          justify-content: center;
+          text-align: center;
+        }
+        .brand {
+          font-size: 22px;
+        }
+        nav {
+          justify-content: center;
+        }
+        .hero {
+          min-height: 470px;
+          padding: 50px 7%;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .category img {
+          height: 270px;
+        }
+        .auth-card {
+          padding: 27px 20px;
+        }
+        .profile-top {
+          justify-content: center;
+          text-align: center;
+        }
+        .details {
+          grid-template-columns: 1fr;
+        }
+        .profile-content {
+          padding: 22px;
+        }
+        .account-row {
+          grid-template-columns: 1fr auto;
+          gap: 8px;
+        }
+        .account-label {
+          grid-column: 1 / -1;
+        }
+        .account-value {
+          grid-column: 1;
+        }
+        .copy-btn {
+          grid-column: 2;
+          grid-row: 2;
+        }
+        .transaction-card {
+          padding: 23px 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div>
+        <div class="brand">✺ THIYAGU TEXTILE STORE</div>
+        <div class="tagline">FASHION • STYLE • TRADITION</div>
+      </div>
+      <nav>
+        <button class="selected" data-page="home" onclick="showPage('home')">
+          Home
+        </button>
+        <button data-page="login" onclick="showPage('login')">Login</button>
+        <button data-page="register" onclick="showPage('register')">
+          Register
+        </button>
+        <button data-page="profile" onclick="showPage('profile')">
+          Profile
+        </button>
+        <button data-page="transactions" onclick="showPage('transactions')">
+          Transactions
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="hero-content">
+            <p class="eyebrow">Elegance in every thread</p>
+            <h1>Your Style.<br /><span>Our Tradition.</span></h1>
+            <p>
+              Welcome to Thiyagu Textile Store. Discover traditional
+              inspiration, beautiful fabrics, and fashion for every occasion.
+            </p>
+            <div class="actions">
+              <button class="btn" onclick="showPage('register')">
+                Join Our Store →
+              </button>
+              <button
+                class="btn btn-outline"
+                style="color: white"
+                onclick="showPage('profile')"
+              >
+                Meet the Owner
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="heading">
+            <p>Discover our collection</p>
+            <h2>Style for Every Occasion</h2>
+          </div>
+          <div class="cards">
+            <article class="category">
+              <img
+                src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=85"
+                alt="Traditional fashion"
+              />
+              <div>
+                <h3>Traditional Elegance</h3>
+                <p>Classic inspiration for special occasions.</p>
+              </div>
+            </article>
+            <article class="category">
+              <img
+                src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
+                alt="Fashion clothing"
+              />
+              <div>
+                <h3>Everyday Fashion</h3>
+                <p>Comfortable styles for your everyday life.</p>
+              </div>
+            </article>
+            <article class="category">
+              <img
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85"
+                alt="Fashion shopping"
+              />
+              <div>
+                <h3>Timeless Style</h3>
+                <p>Discover inspiration for your personal style.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <!-- LOGIN -->
+      <section id="login" class="page">
+        <div class="auth-bg">
+          <div class="auth-card">
+            <div class="logo-circle">✺</div>
+            <p class="eyebrow">Welcome back</p>
+            <h1>Login</h1>
+            <p class="subtitle">Sign in to continue to our store.</p>
+            <form id="loginForm">
+              <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email address"
+                required
+              />
+              <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password (8+ characters)"
+                minlength="8"
+                required
+              />
+              <button class="btn" type="submit">Sign In →</button>
+            </form>
+            <p id="loginMessage" class="message"></p>
+            <p class="auth-bottom">
+              New customer?
+              <span class="text-link" onclick="showPage('register')"
+                >Create an account</span
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTER -->
+      <section id="register" class="page">
+        <div class="auth-bg">
+          <div class="auth-card">
+            <div class="logo-circle">♧</div>
+            <p class="eyebrow">Become a member</p>
+            <h1>Create Account</h1>
+            <p class="subtitle">Join the Thiyagu Textile Store family.</p>
+            <form id="registerForm">
+              <input
+                id="regName"
+                type="text"
+                placeholder="Full name"
+                required
+              />
+              <input
+                id="regEmail"
+                type="email"
+                placeholder="Email address"
+                required
+              />
+              <input
+                id="regPassword"
+                type="password"
+                placeholder="Create password (8+ characters)"
+                minlength="8"
+                required
+              />
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                minlength="8"
+                required
+              />
+              <button class="btn" type="submit">Create Account →</button>
+            </form>
+            <p id="registerMessage" class="message"></p>
+            <p class="auth-bottom">
+              Already registered?
+              <span class="text-link" onclick="showPage('login')"
+                >Login here</span
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- OWNER PROFILE -->
+      <section id="profile" class="page">
+        <div class="banner">
+          <p class="eyebrow">The person behind the store</p>
+          <h1>Our Owner & Our Story</h1>
+          <p>Passion for fashion. Pride in tradition.</p>
+        </div>
+
+        <div class="profile-wrap">
+          <div class="profile-card">
+            <div class="profile-top">
+              <img
+                id="profileImage"
+                class="profile-photo"
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=85"
+                alt="Owner profile photo"
+              />
+              <div>
+                <p class="eyebrow">Owner & Founder</p>
+                <h2>Ramkumar</h2>
+                <p>Thiyagu Textile Store</p>
+              </div>
+            </div>
+
+            <div class="profile-content">
+              <h3>Store Information</h3>
+              <div class="details">
+                <div class="detail">
+                  <p class="label">Store Name</p>
+                  <p class="value">Thiyagu Textile Store</p>
+                </div>
+                <div class="detail">
+                  <p class="label">Owner Name</p>
+                  <p class="value">Ramkumar</p>
+                </div>
+                <div class="detail">
+                  <p class="label">Phone Number</p>
+                  <p class="value"><a href="tel:1234567890">1234567890</a></p>
+                </div>
+                <div class="detail">
+                  <p class="label">Location</p>
+                  <p class="value">Ilayangudi, Sivaganga, Tamil Nadu</p>
+                </div>
+                <div class="detail">
+                  <p class="label">Email Address</p>
+                  <p class="value">
+                    <a href="mailto:thiyagutextilestore@gmail.com"
+                      >thiyagutextilestore@gmail.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="upload">
+                <h3>Update Profile Photo</h3>
+                <p style="font-size: 12px; color: #79685a">
+                  Select an image from your device to preview it.
+                </p>
+                <input type="file" id="photoUpload" accept="image/*" />
+                <p id="photoMessage" class="message"></p>
+              </div>
+
+              <div class="transaction-actions">
+                <a class="btn" href="tel:1234567890">☎ Call Store</a>
+                <a
+                  class="btn btn-outline"
+                  href="mailto:thiyagutextilestore@gmail.com"
+                  >✉ Send Email</a
+                >
+                <button
+                  class="btn btn-outline"
+                  onclick="showPage('transactions')"
+                >
+                  View Account Details →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRANSACTIONS -->
+      <section id="transactions" class="page">
+        <div class="transaction-banner">
+          <p class="eyebrow">Account information</p>
+          <h1>Transactions & Payments</h1>
+          <p>View the store's payment details in one convenient place.</p>
+        </div>
+
+        <div class="transaction-wrap">
+          <div class="transaction-card">
+            <h2>✧ Account Details</h2>
+            <p class="transaction-intro">
+              Thiyagu Textile Store — account information provided by the owner.
+            </p>
+
+            <div class="account-row">
+              <div class="account-label">Account Name</div>
+              <div class="account-value" id="accountName">Ramkumar B</div>
+              <button class="copy-btn" onclick="copyDetail('accountName')">
+                Copy
+              </button>
+            </div>
+
+            <div class="account-row">
+              <div class="account-label">Account ID</div>
+              <div class="account-value" id="accountId">1234567890111213</div>
+              <button class="copy-btn" onclick="copyDetail('accountId')">
+                Copy
+              </button>
+            </div>
+
+            <div class="account-row">
+              <div class="account-label">Account Phone Number</div>
+              <div class="account-value" id="accountPhone">1234567890</div>
+              <button class="copy-btn" onclick="copyDetail('accountPhone')">
+                Copy
+              </button>
+            </div>
+
+            <div class="account-row">
+              <div class="account-label">Google Pay Number</div>
+              <div class="account-value" id="gpayNumber">1234567890</div>
+              <button class="copy-btn" onclick="copyDetail('gpayNumber')">
+                Copy
+              </button>
+            </div>
+
+            <p id="copyMessage" class="message" aria-live="polite"></p>
+
+            <div class="payment-note">
+              <strong>Payment safety:</strong> Verify the recipient name and
+              payment details in your payment app before sending money. Never
+              share your OTP, UPI PIN, card PIN, or banking password. This page
+              displays details only; it does not initiate or verify
+              transactions.
+            </div>
+
+            <div class="transaction-actions">
+              <button class="btn" onclick="showPage('profile')">
+                ← Back to Profile
+              </button>
+              <button class="btn btn-outline" onclick="showPage('home')">
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <h2>✺ THIYAGU TEXTILE STORE</h2>
+      <p>FASHION • STYLE • TRADITION</p>
+      <p>Ilayangudi, Sivaganga, Tamil Nadu</p>
+      <p>© 2026 Thiyagu Textile Store</p>
+    </footer>
+
+    <script>
+      function showPage(pageId) {
+        const target = document.getElementById(pageId);
+        if (!target) return;
+
+        document.querySelectorAll(".page").forEach(function (page) {
+          page.classList.remove("active");
+        });
+        target.classList.add("active");
+
+        document.querySelectorAll("nav button").forEach(function (button) {
+          button.classList.toggle("selected", button.dataset.page === pageId);
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Demo login only. It does not verify a real account.
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const password = document.getElementById("loginPassword").value;
+          const message = document.getElementById("loginMessage");
+
+          if (password.length < 8) {
+            message.textContent = "Use a password with at least 8 characters.";
+            return;
+          }
+
+          message.textContent = "Demo login successful.";
+          showPage("profile");
+        });
+
+      // Demo registration only. It does not save an account.
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const password = document.getElementById("regPassword").value;
+          const confirm = document.getElementById("confirmPassword").value;
+          const message = document.getElementById("registerMessage");
+
+          if (password !== confirm) {
+            message.textContent = "Passwords do not match.";
+            return;
+          }
+
+          message.textContent =
+            "Demo registration complete. You can now visit Login.";
+          document.getElementById("registerForm").reset();
+        });
+
+      // Preview the selected photo.
+      document
+        .getElementById("photoUpload")
+        .addEventListener("change", function () {
+          const file = this.files[0];
+          const message = document.getElementById("photoMessage");
+
+          if (!file) return;
+
+          if (!file.type.startsWith("image/")) {
+            message.textContent = "Please select an image file.";
+            this.value = "";
+            return;
+          }
+
+          if (file.size > 5 * 1024 * 1024) {
+            message.textContent = "Choose an image smaller than 5 MB.";
+            this.value = "";
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            document.getElementById("profileImage").src = event.target.result;
+            message.textContent = "Photo preview updated.";
+          };
+          reader.readAsDataURL(file);
+        });
+
+      // Copy account details to clipboard.
+      async function copyDetail(elementId) {
+        const value = document.getElementById(elementId).textContent.trim();
+        const message = document.getElementById("copyMessage");
+
+        try {
+          await navigator.clipboard.writeText(value);
+          message.textContent = "Copied successfully.";
+        } catch (error) {
+          // Fallback for browsers that do not allow clipboard access.
+          const temp = document.createElement("textarea");
+          temp.value = value;
+          temp.style.position = "fixed";
+          temp.style.opacity = "0";
+          document.body.appendChild(temp);
+          temp.select();
+
+          const copied = document.execCommand("copy");
+          temp.remove();
+
+          message.textContent = copied
+            ? "Copied successfully."
+            : "Copy is unavailable here. Please select and copy the value manually.";
+        }
+      }
+    </script>
+  </body>
+</html>
